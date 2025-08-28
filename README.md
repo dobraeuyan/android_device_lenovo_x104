@@ -22,10 +22,10 @@ Front Camera | 2 MP
 
 | Codename                  | Variant         |
 |---------------------------|-----------------|
-| **tb-x104f**              | ? |
-| **tb-x104f1**             | ? |
-| **tb-x104x**              | ? |
-| **tb-x104l**              | LTE |
+| **TB-X104F**              | WiFi only |
+| **TB-X104F1**             | WiFi only? |
+| **TB-X104X**              | WiFi only? |
+| **TB-X104L**              | LTE |
 
 
 | Feature                   | Status          |
