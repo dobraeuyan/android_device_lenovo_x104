@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2020 The LineageOS Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Default action per gesture, indexed by the gesture id reported by
+         vendor.lineage.touch ITouchscreenGesture (see device/lenovo/x104/touch).
+         Values: 0 none, 1 flashlight, 2 camera, 3 browser, 4 dialer, 5 email,
+         6 messages, 7 play/pause, 8 prev track, 9 next track, 10 vol-, 11 vol+,
+         12 ambient. Users can change any of these in Settings > Gestures. -->
+    <integer-array name="config_defaultTouchscreenGestureActions" translatable="false">
+        <item>2</item>   <!-- 0  draw C            -> camera         -->
+        <item>1</item>   <!-- 1  draw O            -> flashlight     -->
+        <item>7</item>   <!-- 2  draw M            -> play/pause     -->
+        <item>3</item>   <!-- 3  draw W            -> browser        -->
+        <item>0</item>   <!-- 4  draw S            -> none           -->
+        <item>0</item>   <!-- 5  draw V            -> none           -->
+        <item>0</item>   <!-- 6  draw e            -> none           -->
+        <item>0</item>   <!-- 7  slide up          -> none           -->
+        <item>0</item>   <!-- 8  slide down        -> none           -->
+        <item>8</item>   <!-- 9  slide left        -> previous track -->
+        <item>9</item>   <!-- 10 slide right       -> next track     -->
+    </integer-array>
+</resources>

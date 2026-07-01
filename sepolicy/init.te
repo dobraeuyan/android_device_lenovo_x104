@@ -1,0 +1,3 @@
+# init programs the pm8916 vibrator LED trigger at boot via an init.rc
+# "write" command. The node is now labeled sysfs_leds (see genfs_contexts).
+allow init sysfs_leds:file w_file_perms;

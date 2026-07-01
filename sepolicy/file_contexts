@@ -1,0 +1,25 @@
+# eMMC partition block devices for x104 (controller 7824900.sdhci).
+#
+# fstab.qcom mounts via /dev/block/by-name -> /dev/block/bootdevice/by-name
+# -> /dev/block/platform/soc/7824900.sdhci/by-name. Without these labels the
+# underlying block inodes resolve to the generic "block_device" type, so fsck
+# is denied read/write on system & vendor (seen on mmcblk0p33). Harmless under
+# permissive, but in enforcing mode the pre-mount fsck would fail and the
+# partition would not mount.
+/dev/block/platform/soc/7824900\.sdhci/by-name/system     u:object_r:system_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/vendor     u:object_r:system_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/userdata   u:object_r:userdata_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/persist    u:object_r:persist_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/misc       u:object_r:misc_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/boot       u:object_r:boot_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/recovery   u:object_r:recovery_block_device:s0
+/dev/block/platform/soc/7824900\.sdhci/by-name/modem      u:object_r:modem_block_device:s0
+# Factory-reset-protection partition (ro.frp.pst=/dev/block/by-name/config).
+# PersistentDataBlockService (system_server) opens it raw. AOSP enforces
+# "neverallow system_server { dev_type -frp_block_device }:blk_file ..." -- left
+# as generic block_device this is a neverallow violation (CTS/enforcing), seen
+# as the android.display read/open/getattr denials on mmcblk0p32.
+/dev/block/platform/soc/7824900\.sdhci/by-name/config      u:object_r:frp_block_device:s0
+
+# LineageOS TouchscreenGesture HAL (GT9110 gesture-to-action backend).
+/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.x104   u:object_r:hal_lineage_touch_default_exec:s0

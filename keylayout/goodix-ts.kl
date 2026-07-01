@@ -1,0 +1,34 @@
+# Key layout for the Goodix GT9110 touchscreen gesture-wakeup keys.
+#
+# The GT9110 firmware recognises several off-screen gestures. The kernel driver
+# (drivers/input/touchscreen/GT9110/gt9xx.c) reports a distinct Linux keycode
+# per gesture; those Linux codes are the "scan codes" below. Android's
+# TouchscreenGesture HAL / LineageParts KeyHandler routes each gesture by its
+# scan code, so the Android keycode each maps to here is only a benign carrier.
+# Double-tap (0xCC) is reported as KEY_POWER by the driver and handled by the
+# default DT2W path, so it is intentionally NOT listed here.
+#
+# scancode  =  Linux KEY_*   gesture
+# 183          KEY_F13        draw C
+# 184          KEY_F14        draw O
+# 185          KEY_F15        draw M
+# 186          KEY_F16        draw W
+# 187          KEY_F17        draw S
+# 188          KEY_F18        draw V
+# 189          KEY_F19        draw e
+# 190          KEY_F20        slide up
+# 191          KEY_F21        slide down
+# 192          KEY_F22        slide left
+# 193          KEY_F23        slide right
+
+key 183   F1    WAKE
+key 184   F2    WAKE
+key 185   F3    WAKE
+key 186   F4    WAKE
+key 187   F5    WAKE
+key 188   F6    WAKE
+key 189   F7    WAKE
+key 190   F8    WAKE
+key 191   F9    WAKE
+key 192   F10   WAKE
+key 193   F11   WAKE

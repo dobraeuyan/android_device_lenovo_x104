@@ -1,0 +1,54 @@
+# x104 (Lenovo Tab E10, TB-X104F) — device-specific carrier/modem init.
+#
+# This file fills the `import init.carrier.rc` hook that the common
+# msm8909-common init.target.rc declares but does not provide. Everything here
+# is x104-only; the common tree is left untouched.
+#
+# Two concerns, both about the modem Q6 (MPSS) subsystem and its userspace:
+#
+#  1. Q6 firmware load (needed for AUDIO).
+#     On MSM8909 the audio DSP (qdsp6/LPASS) runs on the *same* Hexagon Q6 as
+#     the modem, so the modem image (/mnt/fwmt/image/modem.mdt + modem.bNN,
+#     plus mba.mbn) MUST be loaded by the PIL for sound to work. The .mdt/.bNN
+#     live on the dedicated `modem` partition (p1, vfat) which fstab mounts
+#     read-only at /mnt/fwmt — they are NOT shipped as /vendor blobs by design.
+#
+#     The PIL calls request_firmware("modem.mdt"). With CONFIG_FW_LOADER_
+#     USER_HELPER_FALLBACK=y the kernel first tries a *direct* filesystem read
+#     of every entry in fw_path[] (fw_path[0] = firmware_class.path), and only
+#     if that misses does it fall back to the ueventd user-helper. That helper
+#     was aborting (-EAGAIN / -11: "Failed to locate modem.mdt") at boot.
+#     Pointing firmware_class.path at the mounted firmware dir makes the kernel
+#     load modem.mdt directly and deterministically, bypassing the racy helper.
+#
+#  2. Cellular-data daemons are intentionally absent on WiFi-only X104F.
+#     CnE (cnd) and the Data-Port-Mapper QMI manager (dpmQmiMgr) are cellular
+#     connectivity/data daemons (cellular<->WiFi handover, QMI port mapping).
+#     With no RIL/QMI data (ro.carrier=unknown) they can never reach their QMI
+#     services and exit(1) on a ~5s loop; after 4 crashes init sets
+#     updatable_crashing -> apexd rollback -> boot_completed is never reached.
+#     They have been removed entirely from x104: the common init.qcom.rc no
+#     longer defines them, their CnE/DPM vendor blobs are dropped from
+#     proprietary-files.txt, and their VINTF declarations are gone from
+#     manifest.xml. A cellular variant would re-add them in its own
+#     init.carrier.rc, alongside ril.mk. This does not affect audio (Q6
+#     firmware, above), WiFi, or GPS.
+
+on post-fs
+    # /mnt/fwmt (modem partition) is mounted in `on fs`; set the direct-load
+    # path here, before `on boot` writes /sys/kernel/boot_adsp/boot.
+    write /sys/module/firmware_class/parameters/path /mnt/fwmt/image
+
+    start vendor.qseecomd
+
+on boot
+    chown root system /sys/devices/virtual/gesture_mode/tp_gesture_status/gesture_mask
+    chmod 0664 /sys/devices/virtual/gesture_mode/tp_gesture_status/gesture_mask
+
+service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service
+    class hal
+    user system
+    group system wakelock uhid input
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+    override

@@ -1,0 +1,29 @@
+# SELinux genfs labels for x104 (Lenovo Tab E10) board hardware.
+#
+# These sysfs paths encode this board's specific i2c slave / SPMI wiring, so
+# they belong here rather than in msm8909-common. The matching access rules
+# (hal_health -> sysfs_battery_supply, hal_sensors -> sysfs_sensors,
+# hal_vibrator -> sysfs_leds) already live in device/qcom/sepolicy and apply
+# once the nodes carry the right label instead of the generic "sysfs" type.
+
+# --- Battery / charger: SMB358 + vm-bms on BLSP1 i2c-4 (slave 0x57) ---
+# health@2.0 reads .../power_supply/battery/present, .../usb/* etc. QC common
+# only labels pmi8998 charger nodes, never this board's, so it stayed "sysfs"
+# (75+ denials from hal_health_default).
+genfscon sysfs /devices/platform/soc/78b8000.i2c/i2c-4/4-0057/power_supply u:object_r:sysfs_battery_supply:s0
+
+# --- Accelerometer: Bosch BMA2x2 on BLSP1 i2c-1 (slave 0x18) ---
+# sensors HAL toggles .../bma2x2-accel/enable. It is reached through the real
+# device path, not the /class/sensors symlink that QC common labels, so the
+# real inode was unlabeled (hal_sensors_default read/write/open denials).
+genfscon sysfs /devices/platform/soc/78b5000.i2c/i2c-1/1-0018 u:object_r:sysfs_sensors:s0
+
+# --- Vibrator: pm8916 qpnp-vibrator LED trigger (SPMI bus 1) ---
+# init.rc programs the LED trigger at boot; node was unlabeled "sysfs".
+genfscon sysfs /devices/platform/soc/200f000.qcom,spmi/spmi-0/spmi0-01/200f000.qcom,spmi:pm8916@1:qcom,vibrator@c000/leds u:object_r:sysfs_leds:s0
+
+# --- Touchscreen gesture per-gesture enable mask (GT9110) ---
+# New sysfs attr the GT9110 driver creates alongside the DT2W `gesture` node
+# (which QC common already labels sysfs_tap_to_wake). The TouchscreenGesture
+# HAL writes this to enable/disable individual gestures; reuse the same label.
+genfscon sysfs /devices/virtual/gesture_mode/tp_gesture_status/gesture_mask u:object_r:sysfs_tap_to_wake:s0

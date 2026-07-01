@@ -1,0 +1,4 @@
+# x104 TouchscreenGesture HAL: toggle per-gesture bits in the GT9110 driver's
+# enable mask. The node is labeled sysfs_tap_to_wake (see genfs_contexts),
+# the same type as the DT2W `gesture` node it sits next to.
+allow hal_lineage_touch_default sysfs_tap_to_wake:file rw_file_perms;

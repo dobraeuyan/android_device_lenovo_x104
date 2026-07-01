@@ -1,0 +1,15 @@
+# Android fstab file.
+# <dev>						<mnt_point>	<type>	<mnt_flags and options>						<fs_mgr_flags>
+/dev/block/by-name/system			/system		ext4	ro,barrier=1							wait,nofail
+/dev/block/by-name/vendor			/vendor		ext4	ro,barrier=1,discard						wait,nofail
+
+/dev/block/by-name/userdata			/data		f2fs	nosuid,nodev,noatime,discard,flush_merge			wait,formattable,quota
+/dev/block/by-name/persist			/mnt/per	ext4	nosuid,noatime,nodev,barrier=1					wait,nofail
+
+/dev/block/by-name/boot				/boot		emmc	defaults							defaults
+/dev/block/by-name/recovery			/recovery	emmc	defaults							defaults
+/dev/block/by-name/misc				/misc		emmc	defaults							defaults
+/dev/block/by-name/modem			/mnt/fwmt	vfat	ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0	wait,nofail
+
+# Removable microSD
+/devices/platform/soc/7864900.sdhci/mmc_host*	auto		auto	defaults	voldmanaged=sdcard1:auto
