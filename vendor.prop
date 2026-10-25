@@ -1,0 +1,8 @@
+audio_para_version=Q6005_Audio_acdb_V09_20180810
+
+ro.sf.lcd_density=150
+ro.surface_flinger.primary_display_orientation=ORIENTATION_90
+
+ro.audio.monitorRotation=true
+
+ro.vendor.vm_bms.enabled=1

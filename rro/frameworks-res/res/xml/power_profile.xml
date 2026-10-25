@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<device name="Android">
+
+    <item name="battery.capacity">4850</item>
+
+    <item name="screen.on">110</item>
+    <item name="screen.full">480</item>
+
+    <array name="cpu.clusters.cores">
+        <value>4</value>
+    </array>
+
+    <array name="cpu.core_speeds.cluster0">
+        <value>200000</value>
+        <value>400000</value>
+        <value>533333</value>
+        <value>800000</value>
+        <value>998400</value>
+        <value>1094400</value>
+        <value>1190400</value>
+    </array>
+
+    <array name="cpu.core_power.cluster0">
+        <value>15.01</value>
+        <value>25.64</value>
+        <value>37.62</value>
+        <value>50.61</value>
+        <value>88.26</value>
+        <value>96.32</value>
+        <value>104.0</value>
+    </array>
+
+    <item name="cpu.suspend">2.2</item>
+    <item name="cpu.idle">14.85</item>
+    <item name="cpu.active">0</item>
+    <item name="cpu.cluster_power.cluster0">0</item>
+
+    <array name="gpu.speeds">
+        <value>200000</value>
+        <value>307200</value>
+        <value>456000</value>
+    </array>
+    <array name="gpu.active">
+        <value>102.6</value>
+        <value>406.8</value>
+        <value>580.0</value>
+    </array>
+
+    <item name="wifi.on">1.14</item>
+    <item name="wifi.active">74</item>
+    <item name="wifi.scan">54</item>
+    <array name="wifi.batchedscan">
+        <value>0.0002</value>
+        <value>0.002</value>
+        <value>0.02</value>
+        <value>0.2</value>
+        <value>2</value>
+    </array>
+
+    <item name="bluetooth.controller.idle">1.8</item>
+    <item name="bluetooth.controller.rx">25.2</item>
+    <item name="bluetooth.controller.tx">25.2</item>
+    <item name="bluetooth.controller.voltage">3300</item>
+
+    <item name="gps.on">50.4</item>
+
+    <item name="audio">10.8</item>
+    <item name="video">39.6</item>
+
+    <item name="camera.avg">250</item>
+    <item name="camera.flashlight">0</item>
+
+    <item name="radio.active">191.16</item>
+    <item name="radio.scanning">82.8</item>
+    <array name="radio.on">
+        <value>2.88</value>
+        <value>2.88</value>
+    </array>
+</device>

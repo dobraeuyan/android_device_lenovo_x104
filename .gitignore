@@ -1,0 +1,13 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.pyc
+__pycache__/
+
+# Editor / OS junk
+*~
+*.swp
+.DS_Store
+.idea/
+.vscode/

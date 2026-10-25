@@ -1,0 +1,16 @@
+on post-fs
+    write /sys/module/firmware_class/parameters/path /mnt/fwmt/image
+
+    start vendor.qseecomd
+
+on boot
+    chown root system /sys/devices/virtual/gesture_mode/tp_gesture_status/gesture_mask
+    chmod 0664 /sys/devices/virtual/gesture_mode/tp_gesture_status/gesture_mask
+
+service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service
+    class hal
+    user system
+    group system wakelock uhid input
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
+    override
