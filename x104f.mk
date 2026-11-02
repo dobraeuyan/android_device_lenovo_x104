@@ -7,7 +7,7 @@ TARGET_SCREEN_WIDTH := 1280
 
 $(call inherit-product-if-exists, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/lenovo/x104f/overlay
+DEVICE_PACKAGE_OVERLAYS := device/lenovo/x104f/overlay $(DEVICE_PACKAGE_OVERLAYS)
 
 PRODUCT_PACKAGES += \
     X104OverlayFrameworksRes \
