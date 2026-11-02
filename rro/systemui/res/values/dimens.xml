@@ -4,6 +4,6 @@
 
     <dimen name="volume_dialog_slider_height">186dp</dimen>
 
-    <dimen name="navigation_home_handle_width">144dp</dimen>
-    <dimen name="navigation_handle_radius">1.5dp</dimen>
+    <dimen name="navigation_home_handle_width">320dp</dimen>
+    <dimen name="navigation_handle_radius">2.0dp</dimen>
 </resources>
