@@ -19,6 +19,8 @@
         <value>998400</value>
         <value>1094400</value>
         <value>1190400</value>
+        <value>1248000</value>
+        <value>1267200</value>
     </array>
 
     <array name="cpu.core_power.cluster0">
@@ -29,6 +31,8 @@
         <value>88.26</value>
         <value>96.32</value>
         <value>104.0</value>
+        <value>110.0</value>
+        <value>113.0</value>
     </array>
 
     <item name="cpu.suspend">2.2</item>
